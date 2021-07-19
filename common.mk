@@ -443,11 +443,14 @@ endif
 endif
 
 ifeq ($(GDBSERVER),y)
-HOSTFWD := ,hostfwd=tcp::12345-:12345
+HOSTFWD := $(HOSTFWD),hostfwd=tcp::12345-:12345
 endif
 # Enable QEMU SLiRP user networking
 QEMU_EXTRA_ARGS +=\
 	-netdev user,id=vmnic$(HOSTFWD) -device virtio-net-device,netdev=vmnic
+
+# Event Manager
+HOSTFWD := $(HOSTFWD),hostfwd=tcp::1236-:1236
 
 define run-help
 	@echo
